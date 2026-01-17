@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="style.css">
+    <title>Pinterest Style Page</title>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <a class="logo" href="#"><i class="fab fa-pinterest"></i></a>
+        <a href="#" class="active">Home</a>
+        <a href="#">Explore</a>
+        <a href="#">Create</a>
+
+        <input type="text" class="search" placeholder="Search">
+
+        <a href="#" class="icon"><i class="fas fa-bell"></i></a>
+
+        <!-- CHAT BUTTON -->
+        <a href="message.html" class="icon">
+            <i class="fas fa-comment-dots"></i>
+        </a>
+
+        <a href="#"><img src="img1.jpg" alt="profile"></a>
+    </nav>
+
+    <!-- GRID -->
+    <div id="container">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+    </div>
+
+    <script>
+        const cols = Array.from(document.getElementsByClassName('col'));
+
+        // PAGE 1 IMAGES
+        const imagesPage1 = [
+            'img1.jpg','img2.jpg','img3.jpg','img4.jpg','img5.jpg',
+            'img6.jpg','img7.jpg','img8.jpg','img9.jpg','img10.jpg'
+        ];
+
+        // PAGE 2 IMAGES
+        const imagesPage2 = [
+            'img11.jpg','img12.jpg','img13.jpg','img14.jpg','img15.jpg',
+            'img16.jpg','img17.jpg','img18.jpg','img19.jpg','img20.jpg'
+        ];
+
+        let page = 1;
+        let loadedPage2 = false;
+
+        function createCard(image, col) {
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const img = document.createElement('img');
+            img.src = image;
+            img.alt = 'Memory';
+
+            card.appendChild(img);
+            col.appendChild(card);
+        }
+
+        function loadImages(images) {
+            images.forEach((img, index) => {
+                createCard(img, cols[index % cols.length]);
+            });
+        }
+
+        // Load first page immediately
+        loadImages(imagesPage1);
+
+        // Load second page ONCE when scrolling near bottom
+        window.addEventListener('scroll', () => {
+            if (loadedPage2) return;
+
+            const nearBottom =
+                window.innerHeight + window.scrollY >= document.body.offsetHeight - 600;
+
+            if (nearBottom) {
+                loadedPage2 = true;
+                loadImages(imagesPage2);
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -16,12 +16,48 @@
   <nav>
     <a class="logo" href="#"><i class="fab fa-pinterest"></i></a>
     <a href="#" class="active">Home</a>
-    <a href="#">Explore</a>
+    <a href="explore.html">Explore</a>
     <a href="#">Create</a>
     <input type="text" class="search" placeholder="Search">
-    <a href="#" class="icon"><i class="fas fa-bell"></i></a>
-    <a href="#" class="icon"><i class="fas fa-comment-dots"></i></a>
-    <a href="#"><img src="profilepic.jpg" alt="Profile"></a>
+    <div class="notif-wrapper">
+  <a href="#" class="icon notif-icon" id="notifBell" aria-label="Notifications">
+    <i class="fas fa-bell"></i>
+    <span class="notif-badge">1</span>
+  </a>
+
+  <div class="notif-dropdown" id="notifDropdown">
+     Happy Birthday Sahana!
+  </div>
+</div>
+    <div class="msg-wrapper">
+  <a href="#" class="icon msg-icon" id="msgBell" aria-label="Messages">
+    <i class="fas fa-comment-dots"></i>
+    <span class="msg-badge">1</span>
+  </a>
+
+    <div class="msg-dropdown" id="msgDropdown">
+    <div class="chat-header">Hitesh</div>
+
+    <div class="chat-body">
+      <div class="chat-bubble">I love you</div>
+    </div>
+
+    <!-- non-functional typing bar -->
+    <div class="chat-input">
+      <input type="text" placeholder="Type a message..." />
+      <button type="button" aria-label="Send">Send</button>
+    </div>
+  </div>
+
+    <div class="profile-sort">
+  <a href="#"><img src="profilepic.jpg" alt="Profile"></a>
+
+  <!-- sort icon below profile picture -->
+  <button class="sort-btn" id="sortBtn" type="button" aria-label="Sort photos">
+    <i class="fas fa-sort"></i>
+  </button>
+</div>
+
   </nav>
 
   <div id="loader"></div>
@@ -127,11 +163,74 @@
         loader.style.display = "none";
       }
     }
-    
   </script>
+
+<script>
+  const notifBell = document.getElementById("notifBell");
+  const notifDropdown = document.getElementById("notifDropdown");
+
+  notifBell.addEventListener("click", (e) => {
+    e.preventDefault();
+    const isOpen = notifDropdown.classList.contains("show");
+    notifDropdown.classList.toggle("show", !isOpen);
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".notif-wrapper")) {
+      notifDropdown.classList.remove("show");
+    }
+  });
+</script>
+<script>
+  // ===== SORT TOGGLE (pic1..pic43) =====
+  const sortBtn = document.getElementById("sortBtn");
+
+  // capture the initial (shuffled) order that is already on the page
+  const shuffledImages = [...images];
+
+  // build a sorted version: pic1, pic2, ... (works for .jpg/.jpeg/.JPG/.JPEG)
+  const sortedImages = [...images].sort((a, b) => {
+    const numA = parseInt((a.match(/\d+/) || ["0"])[0], 10);
+    const numB = parseInt((b.match(/\d+/) || ["0"])[0], 10);
+    return numA - numB;
+  });
+
+  let isSorted = false;
+
+  function clearGrid() {
+    cols.forEach(col => col.innerHTML = "");
+  }
+
+  function render(list) {
+    clearGrid();
+    list.forEach((file, idx) => {
+      createCard(file, cols[idx % cols.length]);
+    });
+  }
+
+  sortBtn.addEventListener("click", () => {
+    isSorted = !isSorted;
+    render(isSorted ? sortedImages : shuffledImages);
+  });
+</script>
 
 </body>
 
 </html>
 
+<script>
+  const msgBell = document.getElementById("msgBell");
+  const msgDropdown = document.getElementById("msgDropdown");
+
+  msgBell.addEventListener("click", (e) => {
+    e.preventDefault();
+    msgDropdown.classList.toggle("show");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".msg-wrapper")) {
+      msgDropdown.classList.remove("show");
+    }
+  });
+</script>
 

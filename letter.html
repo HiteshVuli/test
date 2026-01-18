@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+
+  <title>Letter</title>
+</head>
+
+<body>
+
+  <!-- SAME NAVBAR -->
+  <nav>
+    <a class="logo" href="index.html"><i class="fab fa-pinterest"></i></a>
+    <a href="index.html">Home</a>
+    <a href="explore.html" class="active">Explore</a>
+    <a href="#">Create</a>
+    <input type="text" class="search" placeholder="Search">
+    <a href="#" class="icon"><i class="fas fa-bell"></i></a>
+    <a href="#" class="icon"><i class="fas fa-comment-dots"></i></a>
+    <a href="#"><img src="profilepic.jpg" alt="Profile"></a>
+  </nav>
+
+  <!-- ENVELOPE (click to open) -->
+  <div class="letter-wrap">
+    <img id="envelopeImg" src="envelope.png" alt="Envelope (click to open)">
+  </div>
+
+  <!-- PINK LETTER MODAL -->
+  <div class="modal-overlay" id="letterModal" aria-hidden="true">
+    <div class="modal-sheet" role="dialog" aria-modal="true" aria-label="Letter">
+      <button class="modal-close" id="closeLetterModal" type="button" aria-label="Close">✕</button>
+
+      <div class="pink-letter">
+        <p>
+          Hi Sahana,<br>
+          Happy 23rd birthday! You're officially pushing aunty status. You've grown a lot since we first started dating in ways you can't see with your eyes. The younger self of you would be so proud to see how far you've come and everything you've achieved just as I am. Now, you've even graduated after four long years. You're the most dedicated and skilled person I've come across in my life and that's something I hope to learn from you. Just look at the birthday event you just hosted. I'm honestly so proud of all the work you put into it and I'm glad it paid off. Everything from the planning, the decorations, the activities, and environment felt like it was done by a professional which I guess you are. Not only do you have natural talent, you're also somehow the hottest person to ever exist. Hello? How is that even fair? Nobody even comes close to you. You're in your own tier. You, your hair, your makeup, your body, and the list goes on. It's all so perfect, especially last night. I've told you before but you look soo beautiful in that dress. I'm so lucky to have someone like you by my side. I know we've had a lot of problems lately but it's nothing I'm not willing to overcome and I'm sure you feel the same. I wish I could've been there for your birthday this year but I'll be there as soon as I can. Thank you for being who you are. I miss you and I love you.  
+        </p>
+        <p style="margin-top:18px; font-weight:700;">— Hitesh</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const envelopeImg = document.getElementById("envelopeImg");
+    const letterModal = document.getElementById("letterModal");
+    const closeLetterModal = document.getElementById("closeLetterModal");
+
+    function openLetterModalAfterShake() {
+      // shake the envelope image only
+      envelopeImg.classList.add("shake");
+
+      // after shake ends, show modal
+      setTimeout(() => {
+        envelopeImg.classList.remove("shake");
+        letterModal.classList.add("show");
+        letterModal.setAttribute("aria-hidden", "false");
+      }, 420);
+    }
+
+    function closeModal() {
+      letterModal.classList.remove("show");
+      letterModal.setAttribute("aria-hidden", "true");
+    }
+
+    envelopeImg.addEventListener("click", openLetterModalAfterShake);
+    closeLetterModal.addEventListener("click", closeModal);
+
+    // click outside to close
+    letterModal.addEventListener("click", (e) => {
+      if (e.target === letterModal) closeModal();
+    });
+
+    // ESC to close
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && letterModal.classList.contains("show")) closeModal();
+    });
+  </script>
+
+</body>
+</html>

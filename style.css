@@ -1,17 +1,18 @@
+/* style.css */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: system-ui, -apple-system, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #ffff;
-}
-
-nav{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffff;
+  }
+  
+  nav {
     display: flex;
     padding: 10px;
     align-items: center;
@@ -21,34 +22,42 @@ nav{
     background: #fff;
     left: 0;
     right: 0;
-}
-
-nav a{
+  }
+  
+  nav a {
     text-decoration: none;
     color: #000;
     font-weight: 600;
     padding: 10px 15px;
     border-radius: 20px;
-}
-
-nav a.active{
+  }
+  
+  nav a.active {
     background: #000;
     color: #fff;
-}
-
-nav a img{
+  }
+  
+  nav a img {
     height: 30px;
     width: 30px;
     border-radius: 50%;
     object-fit: cover;
-}
-
-.logo{
+  }
+  
+  /* Profile pic framing */
+  nav img {
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 90%;
+    cursor: pointer;
+  }
+  
+  .logo {
     font-size: 30px;
     color: #E60023;
-}
-
-input{
+  }
+  
+  input {
     width: 70%;
     padding: 15px;
     border-radius: 20px;
@@ -56,45 +65,49 @@ input{
     outline: none;
     background: #E9E9E9;
     font-weight: 500;
-}
-
-a.icon{
+  }
+  
+  a.icon {
     font-size: 20px;
     border-radius: 50px;
-}
-
-a.icon:hover{
+  }
+  
+  a.icon:hover {
     background: #d2d2d2;
-}
-
-#container {
+  }
+  
+  #container {
     display: flex;
     flex-wrap: wrap;
     margin-top: 100px;
-}
-
-.col{
+  }
+  
+  .col {
     height: auto;
     width: calc(100% / 5);
     display: flex;
     flex-direction: column;
     padding: 10px;
     gap: 10px;
-}
-
-.card {
-  margin: 0;
-  width: 100%;
-}
-
-.card img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  border-radius: 20px;
-}
-
-#loader {
+  }
+  
+  /* IMPORTANT: give cards the same rounded shape even without images (Explore red blocks) */
+  .card {
+    margin: 0;
+    width: 100%;
+    border-radius: 20px;  /* matches homepage image rounding */
+    overflow: hidden;     /* ensures background respects rounded corners */
+  }
+  
+  /* Homepage images */
+  .card img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 20px;
+  }
+  
+  #loader {
     border: 4px solid #f3f3f3;
     border-top: 4px solid #3498db;
     border-radius: 50%;
@@ -114,4 +127,588 @@ a.icon:hover{
       transform: rotate(360deg);
     }
   }
+  
+  /* ===== EXPLORE PAGE (4 red tiles in one row) ===== */
+  
+  .explore-row {
+    padding-top: 90px; /* clears navbar */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 16px;
+    padding-right: 16px;
+  
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  
+/* ===== EXPLORE PAGE PASTEL CARDS ===== */
+
+  .explore-1 {
+    background: #ffccdd;
+    aspect-ratio: 2 / 3;
+  }
+
+  .explore-2 {
+    background: #cccccc;
+    aspect-ratio: 2 / 3;
+  }
+
+  .explore-3 {
+    background: #ffeedd;
+    aspect-ratio: 2 / 3;
+  }
+
+  .explore-4 {
+    background: #cceeff;
+    aspect-ratio: 2 / 3;
+  }
+
+  
+  /* Responsive */
+  @media (max-width: 900px) {
+    .explore-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 520px) {
+    .explore-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ===== EXPLORE CARD ICONS ===== */
+
+/* ===== EXPLORE CARD ICONS (BIG + CENTERED, NO CIRCLE) ===== */
+
+.explore-row .card {
+  padding-top: 32px;          /* space from top */
+  display: flex;
+  justify-content: center;    /* center horizontally */
+  align-items: flex-start;    /* stay toward the top */
+}
+
+/* The images themselves */
+.explore-row .card img {
+  width: 70%;                 /* BIG image */
+  max-width: 180px;           /* prevents overgrowth on large screens */
+  height: auto;
+
+  border-radius: 0;           /* 🔴 explicitly NO circle */
+  object-fit: contain;
+}
+
+.explore-row .card:nth-child(4) img {
+  margin-top: 20px;   /* adjust this value as needed */
+}
+
+/* ===== EXPLORE CARD LABELS ===== */
+
+.explore-row .card {
+  position: relative; /* needed for absolute positioning of text */
+}
+
+.card-label {
+  position: absolute;
+  bottom: 140px;              /* ⬆ move text higher */
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-weight: 800;          /* extra bold */
+  font-size: 22px;           /* BIGGER text */
+  letter-spacing: 2px;
+
+  color: #000;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* ===== EXPLORE CARD BOTTOM CTA BAR ===== */
+
+.explore-row .card {
+  position: relative; /* required for absolute positioning */
+}
+
+/* Darkened rectangle at bottom */
+.card-cta {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  height: 56px;
+  background: rgba(0, 0, 0, 0.55); /* dark overlay */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+
+  pointer-events: none; /* prevents blocking clicks */
+}
+
+/* ===== EXPLORE CARD CTA: SMALL RECTANGLE ===== */
+
+.card-cta {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  padding: 25px 100px;                 /* minimal vertical padding */
+  background: rgba(0, 0, 0, 0.28);   /* lighter transparency */
+
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+
+  line-height: 11px;                 /* 🔑 MATCH font-size exactly */
+  height: auto;
+
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+
+  border-radius: 6px;                /* tighter corners */
+  white-space: nowrap;
+
+  pointer-events: none;
+}
+
+/* Make CTA links look like normal CTA boxes */
+.card-link {
+  text-decoration: none;
+  color: #fff;
+  pointer-events: auto; /* override previous pointer-events */
+}
+
+/* ===== VIDEO PAGE ===== */
+
+.videos-container {
+  margin-top: 100px; /* clears navbar */
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 16px;
+}
+
+.videos-container video {
+  width: 100%;
+  aspect-ratio: 16 / 9;   /* all videos same height */
+  height: auto;
+
+  object-fit: cover;      /* crops to fill (Pinterest-style) */
+  border-radius: 16px;
+  background: #000;
+  display: block;
+}
+
+/* ===== CROSSWORD LABS EMBED ===== */
+
+.embed-wrap {
+  margin-top: 100px;          /* clears fixed navbar */
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 16px;
+}
+
+.embed-card {
+  border-radius: 20px;
+  overflow: hidden;           /* rounds iframe corners */
+  background: #fff;
+}
+
+/* Responsive iframe */
+.embed-card iframe {
+  width: 100%;
+  height: 85vh;               /* fills most of the screen */
+  border: 0;                  /* removes black border */
+  display: block;
+}
+
+/* ===== LETTER PAGE ===== */
+
+/* ===== LETTER PAGE (envelope centered) ===== */
+
+.letter-wrap {
+  margin-top: 80px;                     /* clears navbar */
+  height: calc(100vh - 80px);           /* exact viewport fit */
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;                     /* 🚫 prevents scrolling */
+}
+
+.letter-wrap img {
+  width: 95vw;
+  height: 95vh;
+  object-fit: contain;
+  border-radius: 20px;
+  cursor: pointer;                  /* shows it's clickable */
+}
+
+/* ===== SHAKE ANIMATION (envelope only) ===== */
+
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  15%  { transform: translateX(-6px); }
+  30%  { transform: translateX(6px); }
+  45%  { transform: translateX(-5px); }
+  60%  { transform: translateX(5px); }
+  75%  { transform: translateX(-3px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.42s ease-in-out;
+}
+
+/* ===== MODAL OVERLAY ===== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 9999;
+}
+
+.modal-overlay.show {
+  display: flex;
+}
+
+.modal-sheet {
+  width: min(900px, 95vw);
+  max-height: 90vh;
+
+  background: transparent;   /* ❌ remove white background */
+  border-radius: 0;
+  overflow: visible;         /* allow pink letter to stand alone */
+  position: relative;
+
+  box-shadow: none;          /* ❌ remove white card shadow */
+}
+
+/* Close button */
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(0,0,0,0.08);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Pink letter paper */
+.pink-letter {
+  margin: 52px auto 18px;
+  padding: 26px 26px;
+  border-radius: 20px;
+
+  background: #ffccdd;       /* ✅ your requested color */
+  max-width: 900px;
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.18); /* soft floating shadow */
+}
+
+.pink-letter h2 {
+  margin: 0 0 12px;
+}
+
+.pink-letter p {
+  margin: 0 0 12px;
+  line-height: 1.55;
+}
+
+.modal-overlay.show .pink-letter {
+  animation: letterIn 0.35s ease-out;
+}
+
+@keyframes letterIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pink-letter {
+  font-family: 'Dancing Script', cursive;
+  font-size: 22px;          /* readable, elegant */
+  line-height: 1.6;
+}
+
+/* ===== HOME PAGE NOTIFICATION BELL ===== */
+
+.notif-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center; /* prevents vertical shifting */
+}
+
+/* Force the icon hover circle to stay perfect */
+a.icon.notif-icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;                /* overrides nav a padding */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Red badge */
+.notif-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 16px;
+  height: 16px;
+
+  background: #e60023;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
+}
+
+/* Dropdown */
+.notif-dropdown {
+  position: absolute;
+  top: 48px;
+  right: 0;
+
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 12px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  font-size: 14px;
+  font-weight: 600;
+
+  display: none;
+  white-space: nowrap;
+  z-index: 2000;
+}
+
+.notif-dropdown.show {
+  display: block;
+}
+
+.notif-icon::before,
+.notif-icon::after {
+  content: none !important;
+}
+
+/* ===== MESSAGE ICON + CHAT ===== */
+
+.msg-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Force perfect hover circle */
+a.icon.msg-icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Badge */
+.msg-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+
+  width: 16px;
+  height: 16px;
+  background: #e60023;
+  color: #fff;
+
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
+}
+
+/* Chat dropdown */
+.msg-dropdown {
+  position: absolute;
+  top: 48px;
+  right: 0;
+
+  width: 220px;
+  background: #fff;
+  border-radius: 14px;
+
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  display: none;
+  flex-direction: column;
+
+  z-index: 2000;
+}
+
+/* Header */
+.chat-header {
+  padding: 10px 12px;
+  font-weight: 700;
+  border-bottom: 1px solid #eee;
+}
+
+/* Body */
+.chat-body {
+  padding: 12px;
+}
+
+/* Message bubble */
+.chat-bubble {
+  background: #ffccdd;
+  padding: 8px 12px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-block;
+}
+
+/* Show dropdown */
+.msg-dropdown.show {
+  display: flex;
+}
+
+/* ===== CHAT TYPING BAR (NON-FUNCTIONAL) ===== */
+
+.chat-input {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  border-top: 1px solid #eee;
+  background: #fff;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+
+.chat-input input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  background: #f0f0f0;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.chat-input button {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: none;
+  background: #111;
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+a.icon.msg-icon {
+  position: relative; /* 🔑 THIS FIXES IT */
+}
+
+/* ===== PROFILE SORT ICON (NO DISPLACEMENT) ===== */
+
+.profile-sort {
+  position: relative;     /* anchor for absolute button */
+  display: inline-block;  /* keeps navbar layout unchanged */
+}
+
+/* Profile image stays exactly where it was */
+.profile-sort img {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+
+/* Sort icon floats BELOW without pushing anything */
+.sort-btn {
+  position: absolute;
+  top: 34px;              /* slightly below profile pic */
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 22px;            /* 🔹 smaller */
+  height: 22px;
+  border-radius: 50%;
+
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;        /* 🔹 smaller icon */
+  color: #555;
+}
+
+/* Hover circle (tiny, subtle) */
+.sort-btn:hover {
+  background: #d2d2d2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
